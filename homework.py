@@ -74,8 +74,8 @@ class Running(Training):
         coeff_colorie_1: float = 18
         coeff_colorie_2: float = 20
         duration_in_min: float = self.duration * self.MIN_IN_HOUR
-        calories: float = ((coeff_colorie_1 * speed - coeff_colorie_2) *
-                           self.weight / self.M_IN_KM * duration_in_min)
+        calories: float = ((coeff_colorie_1 * speed - coeff_colorie_2)
+                           * self.weight / self.M_IN_KM * duration_in_min)
         return calories
     pass
 
@@ -96,10 +96,10 @@ class SportsWalking(Training):
         coeff_colorie_1: float = 0.035
         coeff_colorie_2: float = 0.029
         duration_in_min: float = self.duration * self.MIN_IN_HOUR
-        calories: float = ((coeff_colorie_1 * self.weight +
-                           (speed ** 2 // self.height) *
-                           coeff_colorie_2 * self.weight) *
-                           duration_in_min)
+        calories: float = ((coeff_colorie_1 * self.weight
+                           + (speed ** 2 // self.height)
+                           * coeff_colorie_2 * self.weight)
+                           * duration_in_min)
         return calories
 
 
@@ -119,8 +119,8 @@ class Swimming(Training):
 
     def get_mean_speed(self) -> float:
         """Расчет средней скорости при плавании."""
-        speed: float = (self.length_pool * self.count_pool /
-                        self.M_IN_KM / self.duration)
+        speed: float = (self.length_pool * self.count_pool
+                        / self.M_IN_KM / self.duration)
         return speed
 
     def get_spent_calories(self) -> float:
@@ -128,8 +128,8 @@ class Swimming(Training):
         speed: float = self.get_mean_speed()
         coeff_calorie_1: float = 1.1
         coeff_calorie_2: float = 2
-        calories: float = ((speed + coeff_calorie_1) * coeff_calorie_2 *
-                           self.weight)
+        calories: float = ((speed + coeff_calorie_1) * coeff_calorie_2
+                           * self.weight)
         return calories
 
 
