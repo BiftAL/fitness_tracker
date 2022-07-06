@@ -19,7 +19,7 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Возвращает готовую строку с данными о тренировке."""
-        return (self.INFO_STRING.format(**asdict(self)))
+        return self.INFO_STRING.format(**asdict(self))
 
 
 @dataclass
@@ -65,7 +65,7 @@ class Running(Training):
     COEFF_CALORIE_2: ClassVar[float] = 20  # просто коэффициенты из задания
 
     def get_spent_calories(self) -> float:
-        """Расчет затраченых калорий при беге."""
+        """Расчет затраченных калорий при беге."""
         speed: float = self.get_mean_speed()
         duration_in_min: float = self.duration * self.MIN_IN_HOUR
         calories: float = ((self.COEFF_CALORIE_1 * speed
@@ -85,7 +85,7 @@ class SportsWalking(Training):
     DEGREE_OF_SPEED: ClassVar[int] = 2
 
     def get_spent_calories(self) -> float:
-        """Расчет затраченых калорий при ходьбе."""
+        """Расчет затраченных калорий при ходьбе."""
         speed: float = self.get_mean_speed()
         duration_in_min: float = self.duration * self.MIN_IN_HOUR
         calories: float = ((self.COEFF_CALORIE_1 * self.weight
@@ -113,7 +113,7 @@ class Swimming(Training):
         return speed
 
     def get_spent_calories(self) -> float:
-        """Расчет затраченых колорий при плавании."""
+        """Расчет затраченных калорий при плавании."""
         speed: float = self.get_mean_speed()
         calories: float = ((speed + self.COEFF_CALORIE_1)
                            * self.COEFF_CALORIE_2
@@ -123,16 +123,15 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
+    training_dict: Dict[str, Type[Training]] = {
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking
+    }
     try:
-        training_dict: Dict[str, Type[Training]] = {
-            'SWM': Swimming,
-            'RUN': Running,
-            'WLK': SportsWalking
-        }
-
         return training_dict[workout_type](*data)
     except KeyError:
-        print(f'Неизвесный вид тренировки {workout_type}.'
+        print(f'Неизвестный вид тренировки {workout_type}.'
               ' для использования доступны следующие виды'
               f' тренировок: {list(training_dict)}')
 
