@@ -40,3 +40,13 @@ python -m pip install --upgrade pip
 ```
 pip install -r requirements.txt
 ```
+Для запуска тестов выполнить команду:
+
+```
+pytest
+```
+Для запуска модуля выполнить команду:
+
+```
+python homework.py 
+```
